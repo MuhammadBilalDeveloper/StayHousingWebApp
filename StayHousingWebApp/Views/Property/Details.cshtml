@@ -1,0 +1,123 @@
+﻿@using StayHousingCommon
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+<style>
+    #propertyViewBasicInfo tr td {
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+
+    #propertyViewBasicInfo {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+
+    #OccupiedTenantsTable tr td {
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+
+    #OccupiedTenantsTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+</style>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <input type="hidden" id="PropertyID" value="@ViewBag.ID" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs nav-bordered nav-justified">
+                            <li class="nav-item">
+                                <a id="#basicInfoTabView" href="#basicInfoTabView" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                                    Basic Info
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="#ImagesTabView" href="#ImagesTabView" data-toggle="tab" aria-expanded="true" class="nav-link ">
+                                    Images
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="#CertificatesTabView" href="#CertificatesTabView" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                    Certificates
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="#LandlordTabView" href="#LandlordTabView" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                    Landlord IDs
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content w-100">
+                            <div class="tab-pane active" id="basicInfoTabView">
+                                <div class="col-md-12">
+                                    <table class="table table-hover table-bordered" id="propertyViewBasicInfo">
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="ImagesTabView">
+                                <div class="col-md-12">
+                                    <div id="PropertyImageCarousel" class="carousel slide" data-ride="carousel">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="CertificatesTabView">
+                                <div class="col-md-12">
+                                    <div class="my-2" id="PropertyCertificatePreview2">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="LandlordTabView">
+                                <div class="col-md-12">
+                                    <div class="my-2" id="PropertyLandlordIDPreview2">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+        <div class="card">
+            <div class="card-body">
+                <h3 class="header-title">Occupied Tenants List</h3>
+                <table id="OccupiedTenantsTable" class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <td>Room No</td>
+                            <td>Occupied By</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> <!-- end col -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <img id="bigCardImage" class="img-fluid avatar-xl rounded-circle img-thumbnail" src="~/Content/Images/Property_Avatar.jpg" alt="Card image cap" style="height:200px !important;width:200px !important; display:block; margin:auto;">
+                <h3 class="text-center" id="Address"></h3>
+                <button type="button" class="btn btn-outline-info btn-rounded waves-effect waves-light" style="display:block; margin:auto; margin-bottom:5px;">Rooms <span id="TotalSpan" class="badge badge-info">4</span> </button>
+                <div style="display:flex;justify-content:center;align-content:center;">
+                    <button type="button" class="btn btn-outline-success btn-rounded waves-effect waves-light">Occupied <span id="OccupiedSpan" class="badge badge-success">4</span> </button>
+                    <button type="button" class="btn btn-outline-warning btn-rounded waves-effect waves-light ml-1">Empty <span id="EmptySpan" class="badge badge-danger">4</span> </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<script src="~/CustomContent/PropertyDetails.js"></script>

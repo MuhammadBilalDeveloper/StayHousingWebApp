@@ -1,0 +1,196 @@
+﻿@using StayHousingCommon
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Login Panel || Stay Housing Ltd</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/assets/images/favicon.ico">
+    <link href="@Url.Content("~/assets/libs/sweetalert2/sweetalert2.min.css")?@AppSettings.Version" rel="stylesheet" />
+    <link href="@Url.Content("~/assets/libs/ladda/ladda-themeless.min.css")?@AppSettings.Version" rel="stylesheet" />
+
+    <link href="@Url.Content("~/assets/css/bootstrap-material.min.css")?@AppSettings.Version" rel="stylesheet" />
+    <link href="@Url.Content("~/assets/css/app-material.min.css")?@AppSettings.Version" rel="stylesheet" />
+    <link href="@Url.Content("~/assets/css/icons.min.css")?@AppSettings.Version" rel="stylesheet" />
+
+    <style>
+        .login-error {
+            padding-top: 5px;
+        }
+
+        .card {
+            /*box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);*/
+            background-color: transparent;
+        }
+
+        #LoginBtn {
+            font-size: 16px;
+            color: #fff;
+            line-height: 1.2;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            width: 100%;
+            height: 40px;
+            border-radius: 30px;
+            background-image: linear-gradient(to left, #3FC3AE 0%, #00dbde 51%, #3FC3AE 100%);
+        }
+
+        .btn {
+            flex: 1 1 auto;
+            margin: 0;
+            padding: 30px;
+            text-align: center;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            border-radius: 30px;
+            border: none;
+        }
+
+        .btn:hover {
+            background-position: right center; /* change the direction of the change here */            
+            box-shadow: 0 0 20px #eee;
+        }
+
+        .form-control {
+            background: linear-gradient(90deg, rgba(64,63,88,1) 0%, rgba(64,63,88,0.835171568627451) 100%);
+            padding:20px;
+            border-color:#3B3C54;
+            color:#fff !important;
+        }
+
+        .form-control:focus{
+            border-color:#3B3C54;
+            color:#fff !important;
+        }
+
+        .input-group-text {
+            background: linear-gradient(90deg, rgba(64,63,88,1) 0%, rgba(64,63,88,0.835171568627451) 100%);
+            border-color:#3B3C54;
+        }
+
+        .input-group-text span {
+            color: #fff;
+        }
+
+        .vertical-center {
+            min-height: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s;
+            -webkit-box-shadow: 0 0 0px 1000px #3B3C54 inset;
+            -webkit-text-fill-color: #fff !important;
+        }
+
+
+    </style>
+</head>
+
+<body class="loading authentication-bg authentication-bg-pattern">
+
+    <div class="container">
+        <div class="row justify-content-center vertical-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-pattern" style="box-shadow:none !important;">
+
+                    <div class="card-body p-4">
+
+                        <div class="text-center w-75 m-auto">
+                            <div class="auth-logo">
+                                <a href="/login/" class="logo logo-dark text-center">
+                                    <span class="logo-lg" style="margin-bottom:40px;">
+                                        <img src="~/assets/images/logo-sm.png" style="width:100px;" />
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <form id="LoginForm" novalidate autocomplete="on">
+
+                            <div class="form-group mb-3">
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text mail-input" style="        border-top-left-radius: 25px;
+        border-bottom-left-radius: 25px;
+">
+                                            <span><i class="dripicons-user"></i></span>
+                                        </div>
+                                    </div>
+                                    <input class="form-control" type="email" id="Email" placeholder="Enter your email" required style="  border-top-right-radius: 20px;border-bottom-right-radius: 20px;">
+                                </div>
+                                <p class="text-danger text-center mail-error"></p>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend" data-password="false">
+                                        <div class="input-group-text pass-input" style="border-top-left-radius:25px; border-bottom-left-radius:25px;">
+                                            <span class="password-eye"></span>
+                                        </div>
+                                    </div>
+                                    <input type="password" id="Password" class="form-control" placeholder="Enter your password" required style="        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;">
+                                </div>
+                                <p class="text-danger text-center pass-error"></p>
+                            </div>
+
+                            <div class="form-group mb-0 text-center">
+                                <button class="ladda-button  btn btn-success w-100" type="button" id="LoginBtn" dir="ltr" data-style="slide-left"><span class="ladda-label">Log In</span><span class="ladda-spinner"></span></button>
+                            </div>
+
+                        </form>
+
+
+                    </div> <!-- end card-body -->
+                </div>
+                <!-- end card -->
+                <!-- end row -->
+
+            </div> <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end container -->
+
+
+    <footer class="footer footer-alt" style="color: #fff;">
+        <script>document.write(new Date().getFullYear())</script> &copy; All rights reserved by <a href="https://stayhousing.co.uk/" target="_blank" style="color: #fff; ">Stay Housing Ltd</a>
+    </footer>
+
+    <script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/assets/libs/ladda/spin.min.js"></script>
+    <script src="~/assets/libs/ladda/ladda.min.js"></script>
+
+
+
+    <!-- Vendor js -->
+    <script src="@Url.Content("~/assets/js/vendor.min.js")?@AppSettings.Version"></script>
+
+    <!-- App js -->
+    <script src="@Url.Content("~/assets/js/app.min.js")?@AppSettings.Version"></script>
+
+    <script src="@Url.Content("~/CustomContent/Login.js")?@AppSettings.Version"></script>
+
+</body>
+</html>

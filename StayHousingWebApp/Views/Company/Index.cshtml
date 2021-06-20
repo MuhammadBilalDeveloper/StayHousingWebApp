@@ -1,0 +1,95 @@
+﻿@using StayHousingCommon
+@{
+    ViewBag.Title = "Agents";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+<style>
+    .group {
+        background-color: #F7F8F9;
+    }
+
+    .checkbox label {
+        margin-bottom: 8px;
+        margin-left: 40%;
+    }
+
+    .hidden {
+        color: transparent;
+    }
+
+    #company-table tr td {
+        padding-bottom: 8.5px;
+        padding-top: 8.5px;
+    }
+
+    #company-table {
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 0px 5px 0px rgba(0,0,0,0.42);
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#company-modal">Add New Agent</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="company-table" class="table table-centered table-striped nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+</div>
+
+<!-- sample modal content -->
+
+<div id="company-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style=" display: none; " data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="companyForm" data-parsley-validate="">
+                <div class="modal-header" style="background-color:#3FC3AE !important">
+                    <h4 class="modal-title" style="color:#fff !important">Add New Agent</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:#fff !important">×</button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Name</label>
+                                <input type="hidden" class="form-control" id="ID" name="ID">
+                                <input type="text" class="form-control" id="txtCompany" name="name" required="" placeholder="Enter agent name here.."
+                                       data-parsley-required-message="Title can't be empty!">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success waves-effect waves-light">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- /.modal -->
+
+<script src="@Url.Content("~/CustomContent/company.js")?@AppSettings.Version"></script>

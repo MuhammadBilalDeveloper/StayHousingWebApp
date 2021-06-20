@@ -1,0 +1,234 @@
+﻿@using StayHousingCommon
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+
+<style>
+    
+    #tenantsDetailsTable tr td {
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+
+    #tenantsDetailsTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+
+    #TenantsAddressTable tr td {
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+
+    #TenantsAddressTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+
+    #TenantsContactTable tr td {
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+
+    #TenantsContactTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+
+    #TenantsIssueTable tr td {
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+
+    #TenantsIssueTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+    #TenantsConvictionTable tr td {
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+
+    #TenantsConvictionTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+    #TenantsDocumentsTable tr td {
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+
+    #TenantsDocumentsTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+
+    #TenantsSupportWorkerTable tr td {
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+
+    #TenantsSupportWorkerTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+
+    .img-blue-circle {
+        padding: 5px;
+        background-color: #0d9aeb;
+        border: 1px solid #dee2e6;
+        border-radius: .25rem;
+        max-width: 100%;
+    }
+    .img-orange-circle {
+        padding: 5px;
+        background-color: #ff8917;
+        border: 1px solid #dee2e6;
+        border-radius: .25rem;
+        max-width: 100%;
+    }
+
+    .img-grey-circle {
+        padding: 5px;
+        background-color: #E85445;
+        border: 1px solid #dee2e6;
+        border-radius: .25rem;
+        max-width: 100%;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card col-md-12">
+            <div class="card-body">
+                <input type="hidden" id="ID" value="@ViewBag.ID" />
+                <h3 class="header-title">Contact Information</h3>
+                <table id="TenantsContactTable" class="table table-hover nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>Label</th>
+                            <th>Contact No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card" style="height:90%;">
+                    <div class="card-body">
+                        <h3 class="header-title">Issues</h3>
+                        <table id="TenantsIssueTable" class="table table-hover nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>Issue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card" style="height:90%;">
+                    <div class="card-body">
+                        <h3 class="header-title">Criminal Records</h3>
+                        <table id="TenantsConvictionTable" class="table table-hover nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>Conviction</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h3 class="header-title">Documents</h3>
+                <table id="TenantsDocumentsTable" class="table table-hover nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th class="text-center">Download</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h3 class="header-title">Address History</h3>
+                <table id="TenantsAddressTable" class="table table-hover nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>Address</th>
+                            <th>Room</th>
+                            <th>From</th>
+                            <th>To</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h3 class="header-title">Additional Support</h3>
+                <table id="TenantsSupportWorkerTable" class="table table-hover nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>Worker Type</th>
+                            <th>Name</th>
+                            <th>Mobile</th>
+                            <th>Telephone</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card" style="height: 100%;max-height: 750px;overflow: auto;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12"><img id="bigCardImage" class="img-fluid avatar-xl rounded-circle img-thumbnail" src="~/Content/Images/avater.jpg" alt="Card image cap" style="height:200px !important;width:200px !important; display:block; margin:auto;"></div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="text-center">
+                            <span id="TenantsName"></span>
+                            <span id="tenantsStatusBtn" class="badge badge-outline-success badge-pill" style="font-size: 15px;vertical-align: middle;">Status</span>
+                        </h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <table id="tenantsDetailsTable" class="table table-hover">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+
+
+<script src="@Url.Content("~/CustomContent/TenantsDetails.js")?@AppSettings.Version"></script>

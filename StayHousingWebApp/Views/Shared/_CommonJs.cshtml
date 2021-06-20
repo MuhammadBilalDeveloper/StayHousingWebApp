@@ -1,0 +1,65 @@
+﻿@using StayHousingCommon
+
+<!-- Vendor js -->
+<script type="text/javascript" src="@Url.Content("~/assets/js/vendor.min.js")?@AppSettings.Version"></script>
+
+
+
+<!-- Plugins js-->
+<script type="text/javascript" src="@Url.Content("~/assets/libs/flatpickr/flatpickr.min.js")?@AppSettings.Version"></script>
+
+<!-- third party js -->
+<script type="text/javascript" src="@Url.Content("~/assets/libs/datatables/js/jquery.dataTables.min.js")?@AppSettings.Version"></script>
+<script type="text/javascript" src="@Url.Content("~/assets/libs/datatables/js/dataTables.bootstrap4.min.js")?@AppSettings.Version"></script>
+<script type="text/javascript" src="@Url.Content("~/assets/libs/datatables/js/dataTables.responsive.min.js")?@AppSettings.Version"></script>
+<script src="@Url.Content("~/assets/libs/datatables/js/dataTables.buttons.min.js")?@AppSettings.Version"></script>
+<script src="@Url.Content("~/assets/libs/datatables/js/buttons.flash.min.js")?@AppSettings.Version"></script>
+<script src="@Url.Content("~/assets/libs/datatables/js/buttons.html5.min.js")?@AppSettings.Version"></script>
+<script src="@Url.Content("~/assets/libs/datatables/js/buttons.print.min.js")?@AppSettings.Version"></script>
+
+<script type="text/javascript" src="@Url.Content("~/assets/libs/datatables/js/responsive.bootstrap4.min.js")?@AppSettings.Version"></script>
+
+<script type="text/javascript" src="@Url.Content("~/assets/libs/sweetalert2/sweetalert2.min.js" )?@AppSettings.Version"></script>
+<script type="text/javascript" src="@Url.Content("~/assets/libs/toastr/toastr.min.js" )?@AppSettings.Version"></script>
+<script type="text/javascript" src="@Url.Content("~/assets/libs/dropify/js/dropify.min.js" )?@AppSettings.Version"></script>
+<script type="text/javascript" src="@Url.Content("~/assets/libs/select2/select2.min.js" )?@AppSettings.Version"></script>
+<script type="text/javascript" src="@Url.Content("~/assets/libs/parsley/parsley.min.js" )?@AppSettings.Version"></script>
+
+<script src="@Url.Content("~/assets/libs/dropzone/dropzone.js" )?@AppSettings.Version"></script>
+<script src="@Url.Content("~/assets/libs/switchery/switchery.min.js" )?@AppSettings.Version"></script>
+<script src="@Url.Content("~/assets/libs/JqueryUI/jquery.autocomplete.min.js")?@AppSettings.Version"></script>
+<script src="@Url.Content("~/assets/libs/apexCharts/apexcharts.min.js" )?@AppSettings.Version"></script>
+<!-- third party js ends -->
+<!-- App js-->
+<script type="text/javascript" src="@Url.Content("~/assets/js/app.min.js" )?@AppSettings.Version"></script>
+<script type="text/javascript" src="@Url.Content("~/CustomContent/_DashBoardLayout.js")?@AppSettings.Version"></script>
+
+<script>
+    $(function () {
+        $(document).ajaxStart(function (event) {
+            event.preventDefault();
+            $("#loaderGif").fadeIn();
+        });
+        $(document).ajaxStop(function (event) {
+            event.preventDefault();
+            $("#loaderGif").fadeOut();
+        });
+
+        $(document).ajaxComplete(function (event) {
+            event.preventDefault();
+            $("#loaderGif").fadeOut();
+        });
+        $(document).ajaxError(function (event) {
+            event.preventDefault();
+            $("#loaderGif").fadeOut();
+        });
+
+        jQuery(document).ready(function ($) {
+            $("#loaderGif").fadeOut(2000);
+        });
+    });
+
+
+</script>
+
+

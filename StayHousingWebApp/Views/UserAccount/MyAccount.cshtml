@@ -1,0 +1,151 @@
+﻿@using StayHousingCommon
+
+@{
+    var fullName = StayHousingCommon.SessionVar.FirstName + "" + StayHousingCommon.SessionVar.MiddleName + " " + StayHousingCommon.SessionVar.Surname;
+}
+
+@{
+    ViewBag.Title = "My Account";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card-box ribbon-box">
+            <div class="ribbon ribbon-info float-left"><i class="mdi mdi-access-point mr-1"></i>Profile</div>
+            <div class="ribbon-content">
+                <img id="bigCardImage" class="img-fluid avatar-xl rounded-circle img-thumbnail" src="" alt="Card image cap" style="height:250px !important;width:250px !important; display:block; margin:auto; background-color:#3FC3AE;">
+                <h5 class="text-center"><span id="textFullName"></span> <span class="badge badge-outline-success badge-pill">Online</span></h5>
+
+                <ul class="nav nav-tabs nav-bordered nav-justified">
+                    <li class="nav-item">
+                        <a id="#home-b2" href="#home-b2" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                            Basic Info
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="#profile-b2" href="#profile-b2" data-toggle="tab" aria-expanded="true" class="nav-link ">
+                            Update Profile Picture
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="#messages-b2" href="#messages-b2" data-toggle="tab" aria-expanded="false" class="nav-link">
+                            Change Password
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div> <!-- end col-->
+    <div class="col-md-7">
+
+        <div class="card card-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="home-b2">
+                    <form id="userBasicInfoForm" data-parsley-validate="">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">First Name</label>
+                                    <input type="text" class="form-control" id="FirstName" placeholder="First Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Middle Name</label>
+                                    <input type="text" class="form-control" id="MiddleName" placeholder="Middle Name">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Surname</label>
+                                    <input type="text" class="form-control" id="Surname" placeholder="Surname">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Email</label>
+                                    <input type="email" class="form-control" id="Email" placeholder="Email" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Phone</label>
+                                    <input type="text" class="form-control" id="Phone" placeholder="Phone Number">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">DOB</label>
+                                    <input type="text" id="DOB" class="form-control flatpickr-input active" placeholder="Date of Birth" readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-success waves-effect waves-light float-right">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="profile-b2">
+                    <form id="userProfilePicUpdateForm" data-parsley-validate="">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label">Profile Picture</label>
+                                <div class="card">
+                                    <input type="hidden" id="PreviousImage" />
+                                    <input type="file" id="ProfilePic" class="dropify" data-max-file-size="1M" data-allowed-file-extensions="jpg png gif" data-default-file="" />
+                                </div> <!-- end card-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-success waves-effect waves-light float-right">Upload</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="messages-b2">
+                    <form id="userChangePassForm" data-parsley-validate="">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">Old Password</label>
+                                    <input type="password" class="form-control" id="OldPassword" placeholder="Old Password" required data-parsley-minlength="6">
+                                    <input type="hidden" class="form-control" id="ID">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">New Password</label>
+                                    <input type="password" class="form-control" id="Password" placeholder="New Password" required data-parsley-minlength="6">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="ConfirmPassword" placeholder="Confirm Password" required data-parsley-minlength="6" data-parsley-equalto="#Password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-success waves-effect waves-light float-right">Change Password</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- end row-->
+<script src="@Url.Content("~/CustomContent/MyAccount.js")?@AppSettings.Version"></script>

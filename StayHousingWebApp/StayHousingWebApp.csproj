@@ -1,0 +1,448 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A99F3790-486E-4B94-9F7D-BCE279B9288B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StayHousingWebApp</RootNamespace>
+    <AssemblyName>StayHousingWebApp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44350</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DotNetZip, Version=1.13.8.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.11.0.0\lib\net20\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.1\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css\app-material.min.css" />
+    <Content Include="assets\css\bootstrap-material.min.css" />
+    <Content Include="assets\css\icons.min.css" />
+    <Content Include="assets\fonts\cerebrisans-bold.svg" />
+    <Content Include="assets\fonts\cerebrisans-light.svg" />
+    <Content Include="assets\fonts\cerebrisans-medium.svg" />
+    <Content Include="assets\fonts\cerebrisans-regular.svg" />
+    <Content Include="assets\fonts\cerebrisans-semibold.svg" />
+    <Content Include="assets\fonts\dripicons-v2.svg" />
+    <Content Include="assets\fonts\dropify.svg" />
+    <Content Include="assets\fonts\fa-brands-400.svg" />
+    <Content Include="assets\fonts\fa-regular-400.svg" />
+    <Content Include="assets\fonts\fa-solid-900.svg" />
+    <Content Include="assets\fonts\feather.svg" />
+    <Content Include="assets\fonts\footable.svg" />
+    <Content Include="assets\fonts\simple-Line-Icons.svg" />
+    <Content Include="assets\fonts\themify.svg" />
+    <Content Include="assets\fonts\weathericons-regular-webfont.svg" />
+    <Content Include="assets\images\bg_gradient.jpg" />
+    <Content Include="assets\images\favicon.ico" />
+    <Content Include="assets\images\logo-light3.png" />
+    <Content Include="assets\images\LoginPanel-Logo.png" />
+    <Content Include="assets\images\loading.gif" />
+    <Content Include="assets\images\logo-light.png" />
+    <Content Include="assets\images\logo-sm.png" />
+    <Content Include="assets\images\stayHousingLoader.gif" />
+    <Content Include="assets\js\app.min.js" />
+    <Content Include="assets\js\pages\form-fileuploads.init.js" />
+    <Content Include="assets\js\vendor.min.js" />
+    <Content Include="assets\libs\apexCharts\apexcharts.min.js" />
+    <Content Include="assets\libs\datatables\buttons.bootstrap4.min.css" />
+    <Content Include="assets\libs\datatables\dataTables.bootstrap4.min.css" />
+    <Content Include="assets\libs\datatables\js\buttons.bootstrap4.min.js" />
+    <Content Include="assets\libs\datatables\js\buttons.flash.min.js" />
+    <Content Include="assets\libs\datatables\js\buttons.html5.min.js" />
+    <Content Include="assets\libs\datatables\js\buttons.print.min.js" />
+    <Content Include="assets\libs\datatables\js\dataTables.bootstrap4.min.js" />
+    <Content Include="assets\libs\datatables\js\dataTables.buttons.min.js" />
+    <Content Include="assets\libs\datatables\js\dataTables.keyTable.min.js" />
+    <Content Include="assets\libs\datatables\js\dataTables.responsive.min.js" />
+    <Content Include="assets\libs\datatables\js\dataTables.select.min.js" />
+    <Content Include="assets\libs\datatables\js\jquery.dataTables.min.js" />
+    <Content Include="assets\libs\datatables\js\pdfmake.min.js" />
+    <Content Include="assets\libs\datatables\js\responsive.bootstrap4.min.js" />
+    <Content Include="assets\libs\datatables\js\vfs_fonts.js" />
+    <Content Include="assets\libs\datatables\responsive.bootstrap4.min.css" />
+    <Content Include="assets\libs\datatables\select.bootstrap4.min.css" />
+    <Content Include="assets\libs\dropify\css\dropify.min.css" />
+    <Content Include="assets\libs\dropify\fonts\dropify.svg" />
+    <Content Include="assets\libs\dropify\js\dropify.min.js" />
+    <Content Include="assets\libs\dropzone\basic.css" />
+    <Content Include="assets\libs\dropzone\dropzone.css" />
+    <Content Include="assets\libs\dropzone\dropzone.js" />
+    <Content Include="assets\libs\flatpickr\flatpickr.min.css" />
+    <Content Include="assets\libs\flatpickr\flatpickr.min.js" />
+    <Content Include="assets\libs\footable\footable.js" />
+    <Content Include="assets\libs\footable\footable.standalone.css" />
+    <Content Include="assets\libs\JqueryUI\jquery.autocomplete.min.js" />
+    <Content Include="assets\libs\ladda\ladda-themeless.min.css" />
+    <Content Include="assets\libs\ladda\ladda.min.js" />
+    <Content Include="assets\libs\ladda\spin.min.js" />
+    <Content Include="assets\libs\momentjs\moment.min.js" />
+    <Content Include="assets\libs\parsley\parsley.min.js" />
+    <Content Include="assets\libs\select2\select2.min.css" />
+    <Content Include="assets\libs\select2\select2.min.js" />
+    <Content Include="assets\libs\sweetalert2\sweetalert2.min.css" />
+    <Content Include="assets\libs\sweetalert2\sweetalert2.min.js" />
+    <Content Include="assets\libs\switchery\switchery.min.css" />
+    <Content Include="assets\libs\switchery\switchery.min.js" />
+    <Content Include="assets\libs\toastr\toastr.css" />
+    <Content Include="assets\libs\toastr\toastr.min.css" />
+    <Content Include="assets\libs\toastr\toastr.min.js" />
+    <Content Include="Content\Images\202006262058278588user-7.jpg" />
+    <Content Include="Content\Images\202006262058590151user-2.jpg" />
+    <Content Include="Content\Images\202006262100156247user-5.jpg" />
+    <Content Include="Content\Images\202006262100583435user-9.jpg" />
+    <Content Include="Content\Images\202006262103347500rooms-king.jpg" />
+    <Content Include="Content\Images\202006262103347656Standard.jpg" />
+    <Content Include="Content\Images\202006262103584375nid_1.jpeg" />
+    <Content Include="Content\Images\202006262106328194bonus-room-1.jpg" />
+    <Content Include="Content\Images\202006262106328194guest-house-at-graceland.jpg" />
+    <Content Include="Content\Images\202006262106328285rooms-king.jpg" />
+    <Content Include="Content\Images\202006262107116724nid_1.jpeg" />
+    <Content Include="Content\Images\202006262109030959guest-house-at-graceland.jpg" />
+    <Content Include="Content\Images\202006262109030959rooms-king.jpg" />
+    <Content Include="Content\Images\202007022224559371user-3.jpg" />
+    <Content Include="Content\Images\202007022232573468user-6.jpg" />
+    <Content Include="Content\Images\202007032334488026user-3.jpg" />
+    <Content Include="Content\Images\202007032339036335user-11.jpg" />
+    <Content Include="Content\Images\202007032343265200user-11.jpg" />
+    <Content Include="Content\Images\202007032345203209user-3.jpg" />
+    <Content Include="Content\Images\202007032347590891user-10.jpg" />
+    <Content Include="Content\Images\202007040015024862202007032348061292Styles.txt" />
+    <Content Include="Content\Images\202007040052532253Styles.txt" />
+    <Content Include="Content\Images\202007070116477046user-8.jpg" />
+    <Content Include="Content\Images\202007070141398892Styles.txt" />
+    <Content Include="Content\Images\202007070150331915user-4.jpg" />
+    <Content Include="Content\Images\202007070150511221Styles.txt" />
+    <Content Include="Content\Images\avater.jpg" />
+    <Content Include="Content\Images\Property_Avatar.jpg" />
+    <Content Include="CustomContent\Backup.js" />
+    <Content Include="CustomContent\checkList.js" />
+    <Content Include="CustomContent\company.js" />
+    <Content Include="CustomContent\dashboard.js" />
+    <Content Include="CustomContent\Login.js" />
+    <Content Include="CustomContent\MyAccount.js" />
+    <Content Include="CustomContent\Payments.js" />
+    <Content Include="CustomContent\Property.js" />
+    <Content Include="CustomContent\PropertyDetails.js" />
+    <Content Include="CustomContent\Reports.js" />
+    <Content Include="CustomContent\tenants.js" />
+    <Content Include="CustomContent\TenantsDetails.js" />
+    <Content Include="CustomContent\userAccount.js" />
+    <Content Include="CustomContent\Holiday.js" />
+    <Content Include="CustomContent\userGroup.js" />
+    <Content Include="CustomContent\_DashBoardLayout.js" />
+    <Content Include="Global.asax" />
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial110.dll" />
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial110.dll" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\PermissionAuthorization.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SessionAuthorization.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\HolidayController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Controllers\PropertyController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\TenantsController.cs" />
+    <Compile Include="Controllers\UserAccountController.cs" />
+    <Compile Include="Controllers\UserGroupController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\ReportDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="assets\fonts\cerebrisans-bold.eot" />
+    <Content Include="assets\fonts\cerebrisans-bold.ttf" />
+    <Content Include="assets\fonts\cerebrisans-bold.woff" />
+    <Content Include="assets\fonts\cerebrisans-bold.woff2" />
+    <Content Include="assets\fonts\cerebrisans-light.eot" />
+    <Content Include="assets\fonts\cerebrisans-light.ttf" />
+    <Content Include="assets\fonts\cerebrisans-light.woff" />
+    <Content Include="assets\fonts\cerebrisans-light.woff2" />
+    <Content Include="assets\fonts\cerebrisans-medium.eot" />
+    <Content Include="assets\fonts\cerebrisans-medium.ttf" />
+    <Content Include="assets\fonts\cerebrisans-medium.woff" />
+    <Content Include="assets\fonts\cerebrisans-medium.woff2" />
+    <Content Include="assets\fonts\cerebrisans-regular.eot" />
+    <Content Include="assets\fonts\cerebrisans-regular.ttf" />
+    <Content Include="assets\fonts\cerebrisans-regular.woff" />
+    <Content Include="assets\fonts\cerebrisans-regular.woff2" />
+    <Content Include="assets\fonts\cerebrisans-semibold.eot" />
+    <Content Include="assets\fonts\cerebrisans-semibold.ttf" />
+    <Content Include="assets\fonts\cerebrisans-semibold.woff" />
+    <Content Include="assets\fonts\cerebrisans-semibold.woff2" />
+    <Content Include="assets\fonts\dripicons-v2.eot" />
+    <Content Include="assets\fonts\dripicons-v2.ttf" />
+    <Content Include="assets\fonts\dripicons-v2.woff" />
+    <Content Include="assets\fonts\dropify.eot" />
+    <Content Include="assets\fonts\dropify.ttf" />
+    <Content Include="assets\fonts\dropify.woff" />
+    <Content Include="assets\fonts\fa-brands-400.eot" />
+    <Content Include="assets\fonts\fa-brands-400.ttf" />
+    <Content Include="assets\fonts\fa-brands-400.woff" />
+    <Content Include="assets\fonts\fa-brands-400.woff2" />
+    <Content Include="assets\fonts\fa-regular-400.eot" />
+    <Content Include="assets\fonts\fa-regular-400.ttf" />
+    <Content Include="assets\fonts\fa-regular-400.woff" />
+    <Content Include="assets\fonts\fa-regular-400.woff2" />
+    <Content Include="assets\fonts\fa-solid-900.eot" />
+    <Content Include="assets\fonts\fa-solid-900.ttf" />
+    <Content Include="assets\fonts\fa-solid-900.woff" />
+    <Content Include="assets\fonts\fa-solid-900.woff2" />
+    <Content Include="assets\fonts\feather.eot" />
+    <Content Include="assets\fonts\feather.ttf" />
+    <Content Include="assets\fonts\feather.woff" />
+    <Content Include="assets\fonts\footable.eot" />
+    <Content Include="assets\fonts\footable.ttf" />
+    <Content Include="assets\fonts\footable.woff" />
+    <Content Include="assets\fonts\materialdesignicons-webfont.eot" />
+    <Content Include="assets\fonts\materialdesignicons-webfont.ttf" />
+    <Content Include="assets\fonts\materialdesignicons-webfont.woff" />
+    <Content Include="assets\fonts\materialdesignicons-webfont.woff2" />
+    <Content Include="assets\fonts\simple-Line-Icons.eot" />
+    <Content Include="assets\fonts\simple-Line-Icons.ttf" />
+    <Content Include="assets\fonts\simple-Line-Icons.woff" />
+    <Content Include="assets\fonts\simple-Line-Icons.woff2" />
+    <Content Include="assets\fonts\summernote.eot" />
+    <Content Include="assets\fonts\summernote.ttf" />
+    <Content Include="assets\fonts\summernote.woff" />
+    <Content Include="assets\fonts\summernote.woff2" />
+    <Content Include="assets\fonts\themify.eot" />
+    <Content Include="assets\fonts\themify.ttf" />
+    <Content Include="assets\fonts\themify.woff" />
+    <Content Include="assets\fonts\weathericons-regular-webfont.eot" />
+    <Content Include="assets\fonts\weathericons-regular-webfont.ttf" />
+    <Content Include="assets\fonts\weathericons-regular-webfont.woff" />
+    <Content Include="assets\fonts\weathericons-regular-webfont.woff2" />
+    <Content Include="assets\libs\dropify\fonts\dropify.eot" />
+    <Content Include="assets\libs\dropify\fonts\dropify.ttf" />
+    <Content Include="assets\libs\dropify\fonts\dropify.woff" />
+    <Content Include="Content\Images\202006262103532032dummy.pdf" />
+    <Content Include="Content\Images\202006262107025005dummy1.pdf" />
+    <Content Include="Content\Images\202006262109169069dummy2.pdf" />
+    <Content Include="Content\Images\202007022238148170BasicRequirements.docx" />
+    <Content Include="Content\Images\202007032236397208202007032231320030202007022224570960dummy.pdf" />
+    <Content Include="Content\Images\202007032236399522202007032231322015202007022224574012LoginDocument.docx" />
+    <Content Include="Content\Images\202007032334493960LoginDocument.docx" />
+    <Content Include="Content\Images\202007032334495865dummy.pdf" />
+    <Content Include="Content\Images\202007032339041212PropertiesProject.docx" />
+    <Content Include="Content\Images\202007032343270825PropertiesProject.docx" />
+    <Content Include="Bak\StayHousingDB_11 Jul 2020.bak" />
+    <None Include="packages.config" />
+    <Content Include="Views\Shared\_DashBoardLayout.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\UserGroup\Index.cshtml" />
+    <Content Include="Views\UserAccount\Index.cshtml" />
+    <Content Include="Views\Shared\_CommonCss.cshtml" />
+    <Content Include="Views\Shared\_CommonJs.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\UserAccount\MyAccount.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <Content Include="Views\Property\Index.cshtml" />
+    <Content Include="Views\Property\Details.cshtml" />
+    <Content Include="Views\Tenants\Index.cshtml" />
+    <Content Include="Views\Tenants\Details.cshtml" />
+    <Content Include="Views\Payments\Index.cshtml" />
+    <Content Include="Views\Payments\checkList.cshtml" />
+    <Content Include="Views\Dashboard\PermissionDenied.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Reports\ReportDataSet.xsc">
+      <DependentUpon>ReportDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\ReportDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportDataSet.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\ReportDataSet.xss">
+      <DependentUpon>ReportDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Shared\NoDataFound.cshtml" />
+    <Content Include="Views\Dashboard\Backup.cshtml" />
+    <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\Holiday\Index.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StayHousingCommon\StayHousingCommon.csproj">
+      <Project>{805FDA98-90FD-49D0-BAFF-739C292CAB12}</Project>
+      <Name>StayHousingCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StayHousingLib\StayHousingLib.csproj">
+      <Project>{a349d299-0237-455a-818c-36fd46f0edb1}</Project>
+      <Name>StayHousingLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StayHousingModel\StayHousingModel.csproj">
+      <Project>{3975ba92-689e-433e-b93d-7b4ceeb90778}</Project>
+      <Name>StayHousingModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reports\PaymentReport.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\PropertyReport.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\TenantReport.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\UserReport.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>64750</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44350/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

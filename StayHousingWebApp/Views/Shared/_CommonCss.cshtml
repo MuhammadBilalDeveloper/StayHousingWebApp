@@ -1,0 +1,133 @@
+﻿@using StayHousingCommon
+
+<!-- Plugins css -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/libs/flatpickr/flatpickr.min.css")?@AppSettings.Version" />
+<!-- datatables -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/libs/datatables/dataTables.bootstrap4.min.css" )?@AppSettings.Version" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/libs/datatables/responsive.bootstrap4.min.css" )?@AppSettings.Version" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/libs/datatables/buttons.bootstrap4.min.css" )?@AppSettings.Version" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/libs/datatables/select.bootstrap4.min.css" )?@AppSettings.Version" />
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/libs/sweetalert2/sweetalert2.min.css" )?@AppSettings.Version" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/libs/toastr/toastr.css" )?@AppSettings.Version" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/libs/dropify/css/dropify.min.css" )?@AppSettings.Version" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/libs/select2/select2.min.css" )?@AppSettings.Version" />
+
+<link href="@Url.Content("~/assets/libs/dropzone/dropzone.css" )?@AppSettings.Version" rel="stylesheet" />
+<link href="@Url.Content("~/assets/libs/dropzone/basic.css" )?@AppSettings.Version" rel="stylesheet" />
+<link href="@Url.Content("~/assets/libs/switchery/switchery.min.css" )?@AppSettings.Version" rel="stylesheet" />
+
+
+<!-- App css -->
+<link rel="stylesheet" type="text/css" id="bs-default-stylesheet" href="@Url.Content("~/assets/css/bootstrap-material.min.css" )?@AppSettings.Version" />
+<link rel="stylesheet" type="text/css" id="app-default-stylesheet" href="@Url.Content("~/assets/css/app-material.min.css" )?@AppSettings.Version" />
+
+<!-- icons -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/css/icons.min.css" )?@AppSettings.Version" />
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/CustomContents/MISLib/MISPrint/MISPrint.css")?@AppSettings.Version" />
+
+
+<style>
+    #loaderGif {
+        background-color: #fff;
+        height: 100%;
+        margin-top: 0;
+        opacity: 0.8;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999999;
+    }
+
+    #loading-center {
+        height: 100%;
+        position: relative;
+        width: 100%;
+    }
+
+    #loading-center-absolute {
+        height: 200px;
+        left: 50%;
+        margin-left: -100px;
+        margin-top: -100px;
+        position: absolute;
+        top: 35%;
+        transform: rotate(-135deg);
+        width: 200px;
+    }
+
+    .object {
+        animation: 2s ease 0s normal none infinite running animate;
+        border-color: #159A80 transparent transparent #eb7007;
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 5px;
+        position: absolute;
+    }
+
+    #object_one {
+        height: 50px;
+        left: 45px;
+        top: 45px;
+        width: 50px;
+    }
+
+    #object_two {
+        animation-delay: 0.2s;
+        height: 70px;
+        left: 35px;
+        top: 35px;
+        width: 70px;
+    }
+
+    #object_three {
+        animation-delay: 0.4s;
+        height: 90px;
+        left: 25px;
+        top: 25px;
+        width: 90px;
+    }
+
+    #object_four {
+        animation-delay: 0.6s;
+        height: 110px;
+        left: 15px;
+        top: 15px;
+        width: 110px;
+    }
+
+    .lUserName {
+        text-transform: capitalize;
+    }
+
+    @@keyframes animate {
+        50% {
+            transform: rotate(360deg) scale(0.8);
+        }
+    }
+
+    .switchery-small {
+        height: 5px;
+        width: 40px;
+    }
+
+        .switchery-small > small {
+            height: 18px;
+            width: 18px;
+            margin-top: -6px;
+        }
+
+    .dropify-wrapper .dropify-message p {
+        font-size: 20px !important;
+    }
+
+    .swal2-modal .swal2-title {
+        font-size: 20px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .swal2-content {
+        font-size: 14px !important;
+    }
+</style>

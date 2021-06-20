@@ -1,0 +1,91 @@
+﻿@using StayHousingCommon
+@{
+    ViewBag.Title = "Backup";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+<style>
+    #dbBakTable tr td {
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+
+    #dbBakTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+    #fileBakTable tr td {
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+
+    #fileBakTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+</style>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header  bg-white" style="border-bottom:1px solid #EEE;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Database Backup</h4>
+                        </div>
+                        <div class="col-md-6" style="display: flex;justify-content:flex-end;">
+                            <button type="button" id="DatabaseBackupBTN" class="btn btn-success waves-effect waves-light">Backup Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="dbBakTable" class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Last Backup taken at</td>
+                                        <td>By</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header  bg-white" style="border-bottom:1px solid #EEE;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>File Storage Backup</h4>
+                        </div>
+                        <div class="col-md-6" style="display: flex;justify-content:flex-end;">
+                            <button type="button" id="FileStorageBackupBTN" class="btn btn-success waves-effect waves-light">Backup Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="fileBakTable" class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Last Backup taken at</td>
+                                        <td>By</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+
+    </div>
+
+
+    <script src="@Url.Content("~/CustomContent/Backup.js")?@AppSettings.Version"></script>

@@ -1,0 +1,261 @@
+﻿@using StayHousingCommon
+@{
+    ViewBag.Title = "User -> Accounts";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+
+<style>
+    #userAccount-table tr td {
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+
+    #userAccount-table {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 0px 5px 0px rgba(0,0,0,0.42);
+    }
+
+
+    .sel2 .parsley-errors-list.filled {
+        margin-top: 42px;
+        margin-bottom: -60px;
+    }
+
+    .sel2 .parsley-errors-list:not(.filled) {
+        display: none;
+    }
+
+    .sel2 .parsley-errors-list.filled + span.select2 {
+        margin-bottom: 30px;
+    }
+
+        .sel2 .parsley-errors-list.filled + span.select2 span.select2-selection--single {
+            /*background: #FAEDEC !important;*/
+            border: 1px solid #E85445 !important;
+        }
+
+
+    .passVal .parsley-errors-list {
+        position: absolute !important;
+        margin-top: 38px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <button type="button" id="AddUserBtn" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#userAccount-modal">Add New Account</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="userAccount-table" class="table table-centered table-striped nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Gender</th>
+                                        <th>Group</th>
+                                        <th>Company</th>
+                                        <th>Status</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+
+<div id="userAccount-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style=" display: none; " data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="userAccountForm" data-parsley-validate="">
+                <div class="modal-header" style="background-color:#3FC3AE !important">
+                    <h4 class="modal-title" style="color:#fff !important">Add New User Account</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:#fff !important">×</button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">First Name</label>
+                                <input type="text" class="form-control" id="FirstName" placeholder="First Name" required>
+                                <input type="hidden" class="form-control" id="ID">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Middle Name</label>
+                                <input type="text" class="form-control" id="MiddleName" placeholder="Middle Name">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Surname</label>
+                                <input type="text" class="form-control" id="Surname" placeholder="Surname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Email</label>
+                                <input type="email" class="form-control" id="Email" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label for="password">Password</label>
+                                <div class="input-group input-group-merge passVal">
+                                    <input type="password" id="Password" class="form-control" placeholder="Enter your password" required data-parsley-minlength="6"
+                                           data-parsley-minlength-message="Minimum 6 character!">
+                                    <div class="input-group-append" data-password="false">
+                                        <div class="input-group-text">
+                                            <span class="password-eye"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Phone</label>
+                                <input type="text" class="form-control" id="Phone" placeholder="Phone Number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">DOB</label>
+                                <input type="text" id="DOB" class="form-control flatpickr-input active" placeholder="Date of Birth" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">User Group</label>
+                                <div class="sel2">
+                                    <select class="form-control" id="UserGroupSelect" required>
+                                        <option value="-1">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="field-2" class="control-label">Gender</label>
+                            <div class="form-group my-1">
+                                <div class="radio radio-success form-check-inline">
+                                    <input type="radio" id="MaleRadio" value="Male" name="GenderRadio" checked>
+                                    <label for="inlineRadio1"> Male </label>
+                                </div>
+                                <div class="radio radio-info form-check-inline">
+                                    <input type="radio" id="FemaleRadio" value="Female" name="GenderRadio">
+                                    <label for="inlineRadio2"> Female </label>
+                                </div>
+                                <div class="radio radio-danger form-check-inline">
+                                    <input type="radio" id="OtherRadio" value="Others" name="GenderRadio">
+                                    <label for="inlineRadio2"> Others </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">Profile Picture</label>
+                            <div class="card">
+                                <input type="hidden" id="PreviousImage" />
+                                <input type="file" id="ProfilePic" class="dropify" data-max-file-size="1M" data-allowed-file-extensions="jpg png gif" data-default-file="" />
+                            </div> <!-- end card-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="field-2" class="control-label">Status</label>
+                            <div class="form-group my-1">
+                                <div class="radio radio-success form-check-inline">
+                                    <input type="radio" id="ActiveRadio" value="1" name="StatusRadio" checked>
+                                    <label for="inlineRadio1"> Active </label>
+                                </div>
+                                <div class="radio radio-info form-check-inline">
+                                    <input type="radio" id="InActiveRadio" value="0" name="StatusRadio">
+                                    <label for="inlineRadio2"> InActive </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Company</label>
+                                <div class="sel2">
+                                    <select class="form-control" id="CompanySelect" required>
+                                        <option value="-1">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Start Date</label>
+                                <input type="text" id="HStartDate" class="form-control flatpickr-input active" placeholder="Start Date">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Holiday Entitlement</label>
+                                <input type="number" class="form-control" id="HolidayEntitlement" placeholder="Holiday Entitlement">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Hours Worked</label>
+                                <input type="number" class="form-control" id="HoursWorked" placeholder="Hours Worked">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Days Worked</label>
+                                <input type="number" class="form-control" id="Daysworked" placeholder="Days Worked">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Contract Type</label>
+                                <div class="sel2">
+                                    <select class="form-control" id="ContractType" required>
+                                        <option value="-1">Select</option>
+                                        <option value="Full Time">Full Time</option>
+                                        <option value="Part Time">Part Time</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success waves-effect waves-light">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- /.modal -->
+
+
+<script src="@Url.Content("~/CustomContent/userAccount.js")?@AppSettings.Version"></script>

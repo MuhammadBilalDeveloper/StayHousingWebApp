@@ -1,0 +1,120 @@
+﻿@using StayHousingCommon
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header  bg-white" style="border-bottom:1px solid #EEE;">
+                    <h4>Export Users</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="Status" class="control-label">User Status</label>
+                                <div class="sel2">
+                                    <select class="form-control" id="UserStatusSelect" required>
+                                        <option value="-1">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="UserExportExcelBtn" class="control-label" style="color:transparent !important">Button</label>
+                                <button type="button" id="UserExportExcelBtn" class="btn btn-success waves-effect waves-light form-control">Export Excel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header  bg-white" style="border-bottom:1px solid #EEE;">
+                    <h4>Export Properties</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="Status" class="control-label">Status</label>
+                                <div class="sel2">
+                                    <select class="form-control" id="PropertyStatusSelect" required>
+                                        <option value="-1">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="UserExportExcelBtn" class="control-label" style="color:transparent !important">Button</label>
+                                <button type="button" id="PropertyExportExcelBtn" class="btn btn-success waves-effect waves-light form-control">Export Excel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header  bg-white" style="border-bottom:1px solid #EEE;">
+                    <h4>Export Tenants</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="Status" class="control-label">Status</label>
+                                <div class="sel2">
+                                    <select class="form-control" id="TenantStatusSelect" required>
+                                        <option value="-1">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="UserExportExcelBtn" class="control-label" style="color:transparent !important">Button</label>
+                                <button type="button" id="TenantExportExcelBtn" class="btn btn-success waves-effect waves-light form-control">Export Excel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header  bg-white" style="border-bottom:1px solid #EEE;">
+                    <h4>Export Payments</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="Status" class="control-label">Status</label>
+                                <div class="sel2">
+                                    <select class="form-control" id="PaymentStatusSelect" required>
+                                        <option value="-1">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="UserExportExcelBtn" class="control-label" style="color:transparent !important">Button</label>
+                                <button type="button" id="PaymentExportExcelBtn" class="btn btn-success waves-effect waves-light form-control">Export Excel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+
+    </div>
+
+
+<script src="@Url.Content("~/CustomContent/Reports.js")?@AppSettings.Version"></script>

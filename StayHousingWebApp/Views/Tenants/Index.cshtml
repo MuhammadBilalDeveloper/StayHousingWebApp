@@ -1,0 +1,730 @@
+﻿@using StayHousingCommon
+@{
+    ViewBag.Title = "Tenants";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+
+<style>
+    #tenants-table tr td {
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+
+    #tenants-table {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 0px 5px 0px rgba(0,0,0,0.42);
+    }
+
+    #contactTable tr td {
+        padding-bottom: 2px;
+        padding-top: 2px;
+    }
+
+    #contactTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+
+    #issueTable tr td {
+        padding-bottom: 2px;
+        padding-top: 2px;
+    }
+
+    #issueTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+
+    #criminalTable tr td {
+        padding-bottom: 2px;
+        padding-top: 2px;
+    }
+
+    #criminalTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+
+    #supportWorkerTable tr td {
+        padding-bottom: 2px;
+        padding-top: 2px;
+    }
+
+    #supportWorkerTable {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+    }
+
+
+    .hidden {
+        display: none !important;
+    }
+
+    .CurrentAddressBox {
+        border: 1px solid #EEE;
+        height: 200px;
+        overflow-y: scroll;
+        overflow-x: scroll;
+    }
+
+        .CurrentAddressBox ul {
+            list-style: none;
+            margin-left: -40px;
+        }
+
+            .CurrentAddressBox ul li {
+                padding: 10px 10px;
+                border-bottom: 1px solid #EEE;
+            }
+
+    .sel2 .parsley-errors-list.filled {
+        margin-top: 42px;
+        margin-bottom: -60px;
+    }
+
+    .sel2 .parsley-errors-list:not(.filled) {
+        display: none;
+    }
+
+    .sel2 .parsley-errors-list.filled + span.select2 {
+        margin-bottom: 30px;
+    }
+
+        .sel2 .parsley-errors-list.filled + span.select2 span.select2-selection--single {
+            /*background: #FAEDEC !important;*/
+            border: 1px solid #E85445 !important;
+        }
+
+    .grayRow {
+        background-color: #EEE;
+    }
+
+    .warningRow {
+        background-color: #F7EFDC;
+    }
+
+    .img-blue-circle {
+        padding: 4px;
+        background-color: #0d9aeb;
+        border: 0px solid #dee2e6;
+        border-radius: .25rem;
+        max-width: 100%;
+    }
+
+    .img-orange-circle {
+        padding: 4px;
+        background-color: #ff8917;
+        border: 0px solid #dee2e6;
+        border-radius: .25rem;
+        max-width: 100%;
+    }
+
+    .img-grey-circle {
+        padding: 4px;
+        background-color: #E85445;
+        border: 0px solid #dee2e6;
+        border-radius: .25rem;
+        max-width: 100%;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <ul id="tenantsTabs" class="nav nav-tabs nav-bordered nav-justified">
+                            <li class="nav-item">
+                                <a id="allTab" onclick="loadTenantsByStatus('ALL');" href="#" data-toggle="tab" aria-expanded="false" class="nav-link active">ALL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="activeTab" onclick="loadTenantsByStatus('Active');" href="#" data-toggle="tab" aria-expanded="true" class="nav-link ">Active</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="leaversTab" onclick="loadTenantsByStatus('Leavers');" href="#" data-toggle="tab" aria-expanded="true" class="nav-link ">Leavers</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <button type="button" id="AddTenantBtn" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#TenantsForm-modal">Add New Tenant</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="tenants-table" class="table table-centered nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>NI</th>
+                                        <th>CRN</th>
+                                        <th>DOB</th>
+                                        <th>Address</th>
+                                        <th>Room No</th>
+                                        <th>Status</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+
+<div id="TenantsForm-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style=" display: none; " data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-full-width">
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color:#3FC3AE !important">
+                <h4 class="modal-title" style="color:#fff !important">Add New Tenant</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:#fff !important">×</button>
+            </div>
+
+            <div class="modal-body p-4">
+                @*<div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs nav-bordered">
+                                <li class="nav-item">
+                                    <a id="#newTab" href="#newTab" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                                        New
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="#existingTab" href="#existingTab" data-toggle="tab" aria-expanded="true" class="nav-link ">
+                                        Existing
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>*@
+
+                <form id="tenantsForm" data-parsley-validate="">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card-box">
+                                <p style="font-size:18px;">Personal Information</p>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="field-2" class="control-label">NI</label>
+                                        <input type="text" class="form-control" id="NI" placeholder="NI" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="field-2" class="control-label">CRN</label>
+                                        <input type="text" class="form-control" id="CRN" placeholder="CRN">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="field-1" class="control-label">First Name</label>
+                                        <input type="text" class="form-control" id="FirstName" placeholder="First Name" required>
+                                        <input type="hidden" class="form-control" id="ID">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="field-2" class="control-label">Middle Name</label>
+                                        <input type="text" class="form-control" id="MiddleName" placeholder="Middle Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="field-2" class="control-label">Surname</label>
+                                        <input type="text" class="form-control" id="Surname" placeholder="Surname">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="field-2" class="control-label">DOB</label>
+                                        <input type="text" id="DOB" class="form-control flatpickr-input active" placeholder="Date of Birth" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-2">
+                                    <label for="field-2" class="control-label">General Status</label>
+                                    <div class="sel2">
+                                        <select class="form-control" id="StatusSelect">
+                                            <option>Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label for="field-2" class="control-label">Check-in Date</label>
+                                        <input type="text" class="form-control" id="CheckInDate" placeholder="Check-in date" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="field-2" class="control-label">Check-out Date</label>
+                                        <input type="text" class="form-control" id="CheckOutDate" placeholder="Check-out date">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <label for="field-2" class="control-label">Profile Status</label>
+                                    <div class="sel2">
+                                        <select class="form-control" id="ProfileStatusSelect">
+                                            <option>Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 hidden" id="LeaversStatusSelectDIV">
+                                    <label for="field-2" class="control-label">Leavers Status</label>
+                                    <div class="sel2">
+                                        <select class="form-control" id="LeaversStatusSelect">
+                                            <option>Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-2">
+                                    <div class="form-group">
+                                        <label for="field-2" class="control-label">Referral</label>
+                                        <input type="text" class="form-control" id="Referral" placeholder="Referral">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="field-2" class="control-label">Gender</label>
+                                    <div class="form-group my-1">
+                                        <div class="radio radio-success form-check-inline">
+                                            <input type="radio" id="MaleRadio" value="Male" name="GenderRadio" checked>
+                                            <label for="inlineRadio1"> Male </label>
+                                        </div>
+                                        <div class="radio radio-info form-check-inline">
+                                            <input type="radio" id="FemaleRadio" value="Female" name="GenderRadio">
+                                            <label for="inlineRadio2"> Female </label>
+                                        </div>
+                                        <div class="radio radio-danger form-check-inline">
+                                            <input type="radio" id="OtherRadio" value="Others" name="GenderRadio">
+                                            <label for="inlineRadio2"> Others </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-box">
+                                <div class="col-md-12">
+                                    <label class="control-label">Profile Picture</label>
+                                    <div class="card">
+                                        <input type="hidden" id="PreviousImage" />
+                                        <input type="file" id="ProfilePic" class="dropify" data-max-file-size="1M" data-allowed-file-extensions="jpg png gif" data-default-file="" />
+                                    </div> <!-- end card-->
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-box">
+                                <p style="font-size:18px;">Contact Information</p>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="field-2" class="control-label">Contact Number</label>
+                                                <input type="text" class="form-control" id="ContactNo" placeholder="Contact Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="field-2" class="control-label">Contact Label</label>
+                                                <input type="text" class="form-control" id="ContactLabel" placeholder="Contact Label">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="addMoreContact" class="control-label" style="color:transparent">+</label>
+                                                <button id="addMoreContact" class="btn btn-sm btn-info form-control"><i class="mdi mdi-plus"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <table class="table table-hover thead-light" id="contactTable">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-box">
+                                <p class="" style="font-size:18px;">Issues</p>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                                <label for="field-2" class="control-label">Issue</label>
+                                                <input type="text" class="form-control" id="Issue" placeholder="Issue">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="addMoreIssues" class="control-label" style="color:transparent">+</label>
+                                                <button id="addMoreIssues" class="btn btn-sm btn-info form-control"><i class="mdi mdi-plus"></i></button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <table class="table table-hover thead-light" id="issueTable">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-box">
+                                <p class="" style="font-size:18px;">Criminal Records</p>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="field-2" class="control-label">Criminal Conviction</label>
+                                                <input type="text" class="form-control" id="CriminalConviction" placeholder="CriminalConviction">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="CriminalConvictionDate" class="control-label">Date</label>
+                                                <input type="text" class="form-control" id="CriminalConvictionDate" placeholder="CriminalConviction">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="addMoreCriminalConviction" class="control-label" style="color:transparent">+</label>
+                                                <button id="addMoreCriminalConviction" class="btn btn-sm btn-info form-control"><i class="mdi mdi-plus"></i></button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <table class="table table-hover thead-light" id="criminalTable">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-box">
+                                <p class="" style="font-size:18px;">Address</p>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="field-2" class="control-label">Address</label>
+                                                <div class="sel2">
+                                                    <select class="form-control" id="AddressSelect" required>
+                                                        <option>Search</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="field-2" class="control-label">Room No</label>
+                                                <div class="sel2">
+                                                    <select class="form-control" id="RoomNoSelect" required>
+                                                        <option>Select</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-box">
+                                <p class="" style="font-size:18px;">Additional Support</p>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        @*<div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="field-2" class="control-label">SupportWorker</label>
+                                                    <input type="text" class="form-control" id="SupportWorker" placeholder="SupportWorker">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="field-2" class="control-label">SocialWorker</label>
+                                                    <input type="text" class="form-control" id="SocialWorker" placeholder="SocialWorker">
+                                                </div>
+                                            </div>*@
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="field-2" class="control-label">Worker Type</label>
+                                                <div class="sel2">
+                                                    <select class="form-control" id="SupportWorkerSelect">
+                                                        <option>Select</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="field-2" class="control-label">Name</label>
+                                                <input type="text" class="form-control" id="SupportWorkerName" placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="field-2" class="control-label">Mobile No</label>
+                                                <input type="text" class="form-control" id="SupportWorkerMobileNumber" placeholder="Mobile Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="field-2" class="control-label">Telephone No</label>
+                                                <input type="text" class="form-control" id="SupportWorkerTelephoneNumber" placeholder="Telephone Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="field-2" class="control-label">Email</label>
+                                                <input type="text" class="form-control" id="SupportWorkerEmail" placeholder="Email Address">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="addMoreSupportWorker" class="control-label" style="color:transparent">+</label>
+                                                <button id="addMoreSupportWorker" class="btn btn-sm btn-info form-control"><i class="mdi mdi-plus"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <table class="table table-hover thead-light" id="supportWorkerTable">
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-box">
+                                <p class="" style="font-size:18px;">Upload Documents</p>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="custom-file" id="customFile" lang="es">
+                                                <input type="file" class="custom-file-input" id="tenantsFiles" aria-describedby="fileHelp" multiple>
+                                                <label class="custom-file-label" for="tenantsFiles">
+                                                    Select file...
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-12" id="docsPreview">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="justify-content:flex-end;">
+                        <button type="button" class="btn btn-dark waves-effect waves-light mr-2" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">Save changes</button>
+                    </div>
+                </form>
+
+                @*<div class="row">
+                        <div class="tab-content w-100">
+                            <div class="tab-pane active" id="newTab">
+
+
+                            </div>
+                            <div class="tab-pane " id="existingTab">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input type="hidden" id="existingTenantsID" />
+                                                <div class="form-group">
+                                                    <label for="field-2" class="control-label">Tenants</label>
+                                                    <div class="sel2">
+                                                        <select class="form-control" id="ExistingTenantsSelect" required>
+                                                            <option>Select</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label for="field-2" class="control-label">Address</label>
+                                                    <div class="sel2">
+                                                        <select class="form-control" id="ExistingTenantsNewAddress" required>
+                                                            <option>Search</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="field-2" class="control-label">Room No</label>
+                                                    <div class="sel2">
+                                                        <select class="form-control" id="ExistingRoomNoSelect" required>
+                                                            <option>Select</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <img id="ExistingTenantsImage" class="img-fluid avatar-xl rounded img-thumbnail" src="~/Content/Images/avater.jpg" alt="Card image cap" style="height:200px !important;width:200px !important; display:block; margin:auto; background-color:#3FC3AE;">
+                                        </div>
+                                        <div class="row" style="padding: 0 30px;">
+                                            <select class="form-control" id="ExistingStatusSelect" required>
+                                                <option>Select</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Address History</label>
+                                            <div class="CurrentAddressBox">
+                                                <table id="ExistingAddressesTable" class="table nowrap w-100">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Address</th>
+                                                            <th>Room</th>
+                                                            <th>Entry</th>
+                                                            <th>Leave</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div><!-- /.modal -->
+
+<div id="changeAddress-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title" style="color:#fff;">Change Address</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:#fff !important">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="changeAddressForm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="hidden" id="changeTenantsID" />
+                            <input type="hidden" id="exsitingWindow" />
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">New Address</label>
+                                <div class="sel2">
+                                    <select class="form-control" id="changeTenantsNewAddressSelect" required>
+                                        <option>Search</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Room No</label>
+                                <div class="sel2">
+                                    <select class="form-control" id="changeRoomNoSelect" required>
+                                        <option>Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="updateChangeAddressBtn" class="control-label" style="color:transparent;">Save</label>
+                            <div class="form-group">
+                                <button type="submit" id="updateChangeAddressBtn" class="btn btn-success waves-effect w-100">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+
+        </div>
+    </div>
+</div><!-- /.modal -->
+<!-- Right modal content -->
+<div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm modal-right">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="header-title">Filter By</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>NI Number</label>
+                            <input type="text" name="NINumberFilter" id="NINumberFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="FullNameFilter" id="FullNameFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>CRN</label>
+                            <input type="text" name="CRNFilter" id="CRNFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>DOB</label>
+                            <input type="text" name="DOBFilter" id="DOBFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" name="AddressFilter" id="AddressFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Referral</label>
+                            <input type="text" name="ReferralFilter" id="ReferralFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Joining Date</label>
+                            <input type="text" name="JoiningDateFilter" id="JoiningDateFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-dark waves-effect waves-light btn-sm" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger waves-effect waves-light btn-sm" id="ClearFilterBTN">Clear</button>
+                        <button type="button" class="btn btn-success waves-effect waves-light btn-sm" id="TenantsFilterBTN">Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script src="@Url.Content("~/CustomContent/tenants.js")?@AppSettings.Version"></script>

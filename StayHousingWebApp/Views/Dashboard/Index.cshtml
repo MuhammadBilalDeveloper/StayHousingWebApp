@@ -1,0 +1,153 @@
+﻿@using StayHousingCommon
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+
+<style>
+    .card {
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+        .card:hover {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }
+
+    .apexcharts-legend-text {
+        color: #000 !important;
+    }
+
+    .apexcharts-datalabel, .apexcharts-datalabel-label, .apexcharts-datalabel-value, .apexcharts-pie-label {
+        fill: #fff !important;
+    }
+
+    .hidden{
+        display:none !important;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-md-3 col-xl-3">
+        <div class="card" style="background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgb(67, 206, 162) 0%, rgb(24, 90, 157) 100%); border-radius:15px;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="avatar-lg rounded-circle bg-soft-success border-success border shadow">
+                            <i class="fe-users font-22 avatar-title text-white"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-right">
+                            <h3 class="text-white mt-1"><span data-plugin="counterup" id="TotalUsers">0</span></h3>
+                            <p class="text-white mb-1 text-truncate">Users</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div> <!-- end col-->
+
+    <div class="col-md-3 col-xl-3">
+        <div class="card" style="background:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(79,198,224,1) 0%, rgba(91,134,229,1) 100%); border-radius:15px;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="avatar-lg rounded-circle bg-soft-info border-info border shadow">
+                            <i class="mdi mdi-account-group font-22 avatar-title text-white"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-right">
+                            <h3 class="text-white mt-1"><span data-plugin="counterup" id="TotalTenants">0</span></h3>
+                            <p class="text-white mb-1 text-truncate">Tenants</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col-->
+
+    <div class="col-md-3 col-xl-3">
+        <div class="card" style="background:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(69,104,220,1) 0%, rgba(176,106,179,1) 100%); border-radius:15px;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="avatar-lg rounded-circle bg-soft-primary border-primary border shadow">
+                            <i class="mdi mdi-home-city-outline font-22 avatar-title text-white"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-right">
+                            <h3 class="text-white mt-1"><span data-plugin="counterup" id="TotalProperties">0</span></h3>
+                            <p class="text-white mb-1 text-truncate">Properties</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col-->
+
+    <div class="col-md-3 col-xl-3">
+        <div class="card" style="background:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(237,66,100,1) 0%, rgba(255,237,188,1) 100%); border-radius:15px;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="avatar-lg rounded-circle bg-soft-danger border-danger border shadow">
+                            <i class="mdi mdi-bed-outline font-22 avatar-title text-white"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-right">
+                            <h3 class="text-white mt-1"><span data-plugin="counterup" id="TotalRooms">0</span></h3>
+                            <p class="text-white mb-1 text-truncate">Rooms</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col-->
+</div>
+<div class="row">
+    <div class="col-md-6 col-xl-3 mb-3" id="TenantsChart">
+        <div class="card h-100" style="border-radius:15px;">
+            <div class="card-body">
+                
+                <h4 class="header-title mb-0">Tenants Status Chart</h4>
+
+                <div id="cardCollpase19" class="collapse pt-3 show" dir="ltr">
+                    <div id="apex-pie-2" class="apex-charts" data-colors="#00E396,#FEB019,#FF4560"></div>
+                </div> <!-- collapsed end -->
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+    <div class="col-md-6 col-xl-3 mb-3" id="PropertyChart">
+        <div class="card h-100"  style="border-radius:15px;">
+            <div class="card-body">
+                <h4 class="header-title mb-0">Properties Room Vacancy Chart</h4>
+
+                <div id="cardCollpase20" class="collapse pt-3 show" dir="ltr">
+                    <div id="apex-pie-1" class="apex-charts" data-colors="#00E396,#FEB019"></div>
+                </div> <!-- collapsed end -->
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+    <div class="col-md-12 col-xl-6 mb-3" id="AmountChart">
+        <!-- Portlet card -->
+        <div class="card h-100"  style="border-radius:15px;">
+            <div class="card-body">
+                <h4 class="header-title mb-0">Last 12 Month Amount Collection Chart</h4>
+
+                <div id="cardCollpase3" class="collapse pt-3 show" dir="ltr">
+                    <div id="apex-line-2" class="apex-charts" data-colors="#f672a7"></div>
+                </div> <!-- collapsed end -->
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+<!-- end row-->
+
+<script src="@Url.Content("~/CustomContent/dashboard.js")?@AppSettings.Version"></script>
+

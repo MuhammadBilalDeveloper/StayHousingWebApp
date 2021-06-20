@@ -1,0 +1,157 @@
+﻿@using StayHousingCommon
+@{
+    ViewBag.Title = "Users > Group";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+<style>
+    .group {
+        background-color: #F7F8F9;
+    }
+
+    .checkbox label {
+        margin-bottom: 8px;
+        margin-left: 40%;
+    }
+
+    .hidden {
+        color: transparent;
+    }
+
+    #menu-table tr td {
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
+    #userGroup-table tr td {
+        padding-bottom: 8.5px;
+        padding-top: 8.5px;
+    }
+
+    #userGroup-table {
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 0px 5px 0px rgba(0,0,0,0.42);
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#userGroup-modal">Add New Group</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="userGroup-table" class="table table-centered table-striped nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Active</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+</div>
+
+<!-- sample modal content -->
+
+<div id="userGroupPermission-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h4 class="modal-title" style="color:#fff;">Assign Menu Permission to User Group</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:#fff !important">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <div class="col-md-3">
+                        <span>Selected Group:</span>
+
+                        <span id="selectedGroup">Please select a group first!</span>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="hidden" id="selectedGroupID" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="menu-table" class="table table-centered table-bordered nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th><span class="hidden">ID</span></th>
+                                        <th>Permission</th>
+                                        <th>Menu</th>
+                                        <th><div class="checkbox checkbox-success mb-2"><input id="checkboxAll" onClick="CheckAllMenu();" type="checkbox"><label for="checkboxAll"></label></div></th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div><!-- /.modal -->
+
+<div id="userGroup-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style=" display: none; " data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="userGroupForm" data-parsley-validate="">
+                <div class="modal-header" style="background-color:#3FC3AE !important">
+                    <h4 class="modal-title" style="color:#fff !important">Add New User Group</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:#fff !important">×</button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Title</label>
+                                <input type="hidden" class="form-control" id="ID" name="ID">
+                                <input type="text" class="form-control" id="title" name="title" required="" placeholder="Enter user group title here.."
+                                       data-parsley-required-message="Title can't be empty!">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="radio radio-info form-check-inline">
+                                    <input type="radio" id="ActiveRadio" value="1" name="statusRadio" checked>
+                                    <label for="inlineRadio1"> Active </label>
+                                </div>
+                                <div class="radio form-check-inline">
+                                    <input type="radio" id="InActiveRadio" value="0" name="statusRadio">
+                                    <label for="inlineRadio2"> InActive </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- /.modal -->
+
+<script src="@Url.Content("~/CustomContent/userGroup.js")?@AppSettings.Version"></script>

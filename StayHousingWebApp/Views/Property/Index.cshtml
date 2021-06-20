@@ -1,0 +1,488 @@
+﻿@using StayHousingCommon
+
+@{
+    ViewBag.Title = "Properties";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+
+<style>
+    .sel2 .parsley-errors-list.filled {
+        margin-top: 42px;
+        margin-bottom: -60px;
+    }
+
+    .sel2 .parsley-errors-list:not(.filled) {
+        display: none;
+    }
+
+    .sel2 .parsley-errors-list.filled + span.select2 {
+        margin-bottom: 30px;
+    }
+
+        .sel2 .parsley-errors-list.filled + span.select2 span.select2-selection--single {
+            /*background: #FAEDEC !important;*/
+            border: 1px solid #E85445 !important;
+        }
+
+    input[type="text"]:disabled {
+        background: #e8e7e7;
+    }
+
+    #property-table tr td {
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+
+    #property-table {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 0px 5px 0px rgba(0,0,0,0.42);
+    }
+
+    .img-fluid {
+        height: 100%;
+    }
+
+    .carousel-item img {
+        min-height: 350px !important;
+        max-height: 350px !important;
+        min-width: 100% !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <button type="button" id="AddPropertyBtn" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#propertyForm-modal">Add New Property</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="property-table" class="table table-striped table-centered nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Address</th>
+                                        <th>Area</th>
+                                        <th>No of Rooms</th>
+                                        <th>Occupied</th>
+                                        <th>Empty</th>
+                                        <th>Company</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+
+<!-- sample modal content -->
+
+<div id="propertyForm-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style=" display: none; " data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#3FC3AE !important">
+                <h4 class="modal-title" style="color:#fff !important">Add New Property</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:#fff !important">×</button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs nav-bordered nav-justified">
+                            <li class="nav-item">
+                                <a id="#basicInfoTab" href="#basicInfoTab" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                                    Basic Info
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="#ImagesTab" href="#ImagesTab" data-toggle="tab" aria-expanded="true" class="nav-link ">
+                                    Images
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="#CertificatesTab" href="#CertificatesTab" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                    Certificates
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="#LandlordTab" href="#LandlordTab" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                    Landlord IDs
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="tab-content w-100">
+                        <div class="tab-pane active" id="basicInfoTab">
+                            <form id="PropertyBasicForm" data-parsley-validate="">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="field-1" class="control-label">Property Address</label>
+                                            <input type="text" class="form-control" id="Address" placeholder="Property Address" required>
+                                            <input type="hidden" class="form-control" id="ID">
+                                            <input type="hidden" class="form-control" id="PropertyID">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Area</label>
+                                            <input type="text" class="form-control" id="Area" placeholder="Area">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Post Code</label>
+                                            <input type="text" class="form-control" id="PostCode" placeholder="Post Code" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Property Type</label>
+                                            <div class="sel2">
+                                                <select class="form-control" id="PropertyTypeSelect" required>
+                                                    <option value="-1">Select</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Property Came From</label>
+                                            <input type="text" id="HouseCameFrom" class="form-control flatpickr-input active" placeholder="Property Came From">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Number of Rooms</label>
+                                            <input type="number" class="form-control" id="NumberOfRooms" placeholder="Total Number of Rooms" data-parsley-type="number" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Lease Duration</label>
+                                            <input type="text" class="form-control" id="LeaseDuration" placeholder="Lease Duration">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Rent Setting</label>
+                                            <input type="text" class="form-control" id="WeeklyRate" placeholder="Weekly rate" data-parsley-type="number" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Daily Rate</label>
+                                            <input type="text" class="form-control" id="DailyRate" placeholder="Date rate" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Support Worker</label>
+                                            <input type="text" class="form-control" id="SupportWorker" placeholder="Support Worker">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Active Date</label>
+                                            <input type="text" class="form-control"  id="CouncilActiveDate" placeholder="Council ActiveDate" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Landlord Name</label>
+                                            <input type="text" class="form-control" id="LandlordName" placeholder="Landlord Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Landlord Contact Number</label>
+                                            <input type="text" class="form-control" id="LandlordContactNo" placeholder="Landlord Contact Number">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Housing Association</label>
+                                            <input type="text" class="form-control" id="HousingAssociation" placeholder="Housing Association">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="field-2" class="control-label">Company</label>
+                                            <div class="sel2">
+                                                <select class="form-control" id="CompanySelect" required>
+                                                    <option value="-1">Select</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light float-right">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane " id="ImagesTab">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="dropzone dz-clickable" id="propertyImageForm">
+                                        <div class="dz-default dz-message" data-dz-message="">
+                                            <span>Click or drag and drop files here to upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col-md-12">
+                                    <button type="button" id="imageSaveButton" class="btn btn-success waves-effect waves-light float-right">Upload</button>
+                                </div>
+                            </div>
+                            <div class="d-flex row my-2" id="PropertyImagesPreview">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane " id="CertificatesTab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="field-2" class="control-label">Certificate Type</label>
+                                        <div class="sel2">
+                                            <select class="form-control" id="CertificateType" required>
+                                                <option value="">Select</option>
+                                                <option value="Gas Certificate">Gas certificate</option>
+                                                <option value="Fire risk assessment">Fire risk assessment</option>
+                                                <option value="Electrical instillation condition report">Electrical instillation condition report</option>
+                                                <option value="certificate of emergency lighting">certificate of emergency lighting</option>
+                                                <option value="PAT test certificate">PAT test certificate</option>
+                                                <option value="HMO license ">HMO license </option>
+                                                <option value="EPC">EPC</option>
+                                                <option value="Building Insurance">Building Insurance</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="field-2" class="control-label">Expiry Date</label>
+                                        <input type="text" class="form-control" id="ExpairyDate" placeholder="Expiry Date" required>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="field-2" class="control-label">Files</label>
+                                    <div class="dropzone dz-clickable" id="certificateImageForm">
+                                        <div class="dz-default dz-message" data-dz-message="">
+                                            <span>Click or drag and drop files here to upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col-md-12">
+                                    <button type="button" id="certificateSaveButton" class="btn btn-success waves-effect waves-light float-right">Upload</button>
+                                </div>
+                            </div>
+                            <div class="my-2" id="PropertyCertificatePreview">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane " id="LandlordTab">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="field-2" class="control-label">Files</label>
+                                    <div class="dropzone dz-clickable" id="LanlordCertificateImageForm">
+                                        <div class="dz-default dz-message" data-dz-message="">
+                                            <span>Click or drag and drop files here to upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col-md-12">
+                                    <button type="button" id="LanlordCertificateSaveButton" class="btn btn-success waves-effect waves-light float-right">Upload</button>
+                                </div>
+                            </div>
+                            <div class="my-2" id="PropertyLandlordIDPreview">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /.modal -->
+
+<div id="propertyView-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style=" display: none; " data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="userGroupForm" data-parsley-validate="">
+                <div class="modal-header" style="background-color:#3FC3AE !important">
+                    <h4 class="modal-title" style="color:#fff !important">Property Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:#fff !important">×</button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs nav-bordered nav-justified">
+                                <li class="nav-item">
+                                    <a id="#basicInfoTabView" href="#basicInfoTabView" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                                        Basic Info
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="#ImagesTabView" href="#ImagesTabView" data-toggle="tab" aria-expanded="true" class="nav-link ">
+                                        Images
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="#CertificatesTabView" href="#CertificatesTabView" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                        Certificates
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="#LandlordTabView" href="#LandlordTabView" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                        Landlord IDs
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tab-content w-100">
+                            <div class="tab-pane active" id="basicInfoTabView">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered" id="propertyViewBasicInfo">
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="ImagesTabView">
+                                <div class="col-md-12">
+                                    <div id="PropertyImageCarousel" class="carousel slide" data-ride="carousel">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="CertificatesTabView">
+                                <div class="col-md-12">
+                                    <div class="my-2" id="PropertyCertificatePreview2">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="LandlordTabView">
+                                <div class="col-md-12">
+                                    <div class="my-2" id="PropertyLandlordIDPreview2">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- /.modal -->
+<!-- Right modal content -->
+<div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm modal-right">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="header-title">Filter By</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" name="AddressFilter" id="AddressFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Area</label>
+                            <input type="text" name="AreaFilter" id="AreaFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Post Code</label>
+                            <input type="text" name="PostCodeFilter" id="PostCodeFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Property Type</label>
+                            <input type="text" name="PropertyTypeFilter" id="PropertyTypeFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Property Came From</label>
+                            <input type="text" name="PropertyCameFromFilter" id="PropertyCameFromFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Number of Rooms</label>
+                            <input type="text" name="NumberOfRoomsFilter" id="NumberOfRoomsFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Support Worker</label>
+                            <input type="text" name="SupportWorkerFilter" id="SupportWorkerFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Lanlord Name</label>
+                            <input type="text" name="LandlordNameFilter" id="LandlordNameFilter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-dark waves-effect waves-light btn-sm" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger waves-effect waves-light btn-sm" id="ClearFilterBTN">Clear</button>
+                        <button type="button" class="btn btn-success waves-effect waves-light btn-sm" id="PorpertyFilterBTN">Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script src="@Url.Content("~/CustomContent/Property.js")?@AppSettings.Version"></script>
